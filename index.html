@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bro Social — a social experiment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #161616;
+    --border: #262626;
+    --text: #FAFAFA;
+    --body: #BCBCBC;
+    --muted: #7E7E7E;
+    --bro: #B8FF2E;
+    --display: 'Archivo', 'Arial Black', 'Helvetica Neue', sans-serif;
+    --mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--body);
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .bro { color: var(--bro); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    padding: 16vh 0 12vh;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .eyebrow { display: block; margin-bottom: 8vh; }
+
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(6rem, 26vw, 16rem);
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+    color: var(--text);
+    margin-left: -0.04em;
+  }
+
+  .lede {
+    margin-top: 2.4rem;
+    max-width: 34ch;
+    font-size: clamp(1rem, 2.6vw, 1.2rem);
+    color: var(--body);
+  }
+
+  .pill {
+    display: inline-block;
+    margin-top: 2.6rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--bro);
+    color: var(--bro);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* ---- generic section ---- */
+  .section {
+    padding: 9vh 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section > .eyebrow { display: block; margin-bottom: 2.6rem; }
+
+  .prose {
+    font-size: clamp(1.15rem, 3.2vw, 1.7rem);
+    line-height: 1.5;
+    color: var(--text);
+    font-family: var(--display);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    max-width: 24ch;
+  }
+  .prose.long {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(1rem, 2.4vw, 1.18rem);
+    line-height: 1.7;
+    color: var(--body);
+    max-width: 56ch;
+  }
+
+  /* ---- experiment fields ---- */
+  .fields { display: grid; gap: 0; }
+  .field {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.5rem;
+    padding: 1.6rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .field:last-child { border-bottom: 1px solid var(--border); }
+  .field dt {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.3rem;
+  }
+  .field dd { color: var(--body); }
+  .field dd em { color: var(--text); font-style: italic; }
+
+  /* ---- feature list (the joke) ---- */
+  .feat { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+  .feat .label {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.2rem;
+  }
+  .isnt-list {
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: clamp(1rem, 2.6vw, 1.3rem);
+    line-height: 1.9;
+  }
+  .isnt-list span { white-space: nowrap; }
+  .is-word {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(5rem, 24vw, 13rem);
+    line-height: 0.8;
+    color: var(--bro);
+    letter-spacing: -0.04em;
+  }
+
+  /* ---- lexicon ---- */
+  .lex-line {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.3rem, 4vw, 2.1rem);
+    line-height: 1.3;
+    color: var(--text);
+    max-width: 22ch;
+    margin-bottom: 2.6rem;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+  .chip {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+    color: var(--body);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .chip:hover { border-color: var(--bro); color: var(--text); }
+  .chip b { color: var(--bro); font-weight: 400; }
+
+  /* ---- footer ---- */
+  .foot { padding: 9vh 0 12vh; }
+  .foot a {
+    color: var(--bro);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .foot a:hover { border-bottom-color: var(--bro); }
+  .foot .dom {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 6vw, 3rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    display: inline-block;
+  }
+  .foot .row { color: var(--body); margin-bottom: 0.5rem; }
+  .disclaimer {
+    margin-top: 3rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+  }
+  .cursor {
+    display: inline-block;
+    width: 0.55em; height: 1.05em;
+    background: var(--bro);
+    vertical-align: -0.18em;
+    margin-left: 0.15em;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  a:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--bro);
+    outline-offset: 3px;
+  }
+
+  /* ---- motion ---- */
+  .reveal { opacity: 0; transform: translateY(14px); animation: rise 0.7s ease forwards; }
+  .reveal.d1 { animation-delay: 0.08s; }
+  .reveal.d2 { animation-delay: 0.16s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; animation: none; }
+    .cursor { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  @media (max-width: 560px) {
+    .field { grid-template-columns: 1fr; gap: 0.4rem; }
+    .field dt { padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow reveal">Experiment №001 · Invite only · Est. 2026</span>
+      <h1 class="wordmark reveal d1">BRO<span class="bro">.</span></h1>
+      <p class="lede reveal d2">bro social — the social network that does exactly one thing.</p>
+      <span class="pill reveal d2">you'll need a bro pass</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The pitch</span>
+      <p class="prose long">
+        Every app wants more of you — more posts, more time, more outrage, all monetized.
+        Bro Social wants almost none of you. You can't post, comment, or scroll. You can send
+        one thing, to people you've actually met: the word <span class="bro">bro</span>.
+        That's the entire network. We think that might be enough.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The experiment</span>
+      <dl class="fields">
+        <div class="field">
+          <dt>Hypothesis</dt>
+          <dd>Strip a social network of all its content and the dumb little ping that's left — <em>someone is thinking of you</em> — turns out to be the only part that was ever social.</dd>
+        </div>
+        <div class="field">
+          <dt>Method</dt>
+          <dd>One tap. One word. No feed, no metrics, no algorithm quietly ranking your friends.</dd>
+        </div>
+        <div class="field">
+          <dt>Sample</dt>
+          <dd>Bros. Added in person, by QR code, because real life is the control group.</dd>
+        </div>
+        <div class="field">
+          <dt>Result</dt>
+          <dd>Pending. Possibly stupid. Possibly the entire point.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap feat">
+      <div>
+        <div class="label">What it isn't</div>
+        <div class="isnt-list">
+          <span>feeds</span> · <span>likes</span> · <span>comments</span> · <span>followers</span> ·
+          <span>ads</span> · <span>algorithms</span> · <span>DMs</span> · <span>AI</span> ·
+          <span>infinite scroll</span> · <span>you, as the product</span>
+        </div>
+      </div>
+      <div>
+        <div class="label">What it is</div>
+        <div class="is-word">bro</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The language</span>
+      <p class="lex-line">you don't get notifications. you get <span class="bro">brotifications</span>.</p>
+      <div class="chips">
+        <span class="chip" tabindex="0"><b>bro</b>file</span>
+        <span class="chip" tabindex="0"><b>bro</b>ups</span>
+        <span class="chip" tabindex="0"><b>bro</b> pass</span>
+        <span class="chip" tabindex="0"><b>bro</b> code</span>
+        <span class="chip" tabindex="0"><b>bro</b> streak</span>
+        <span class="chip" tabindex="0">leader<b>bro</b>ad</span>
+        <span class="chip" tabindex="0"><b>bro</b> in</span>
+        <span class="chip" tabindex="0"><b>bro</b> out</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span class="dom bro">bro-social.com</span>
+      <p class="row">Invite only. Ask a bro for a bro pass.</p>
+      <p class="row">Locked out? <a href="mailto:meik@bro-social.com">bro meik@bro-social.com</a></p>
+      <p class="disclaimer">No data is sold. There is no data. There is only bro.<span class="cursor"></span></p>
+    </div>
+  </footer>
+
+</body>
+</html>
